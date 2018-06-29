@@ -388,17 +388,18 @@ function createPackageModel(packageId, dataPackage, model) {
 function getDataPackage(packageId, loadBareModel) {
   return loadConfig().then(function() {
     var apiConfig = module.exports.apiConfig;
-
+    var packageIdArray = packageId.split("_");
+    var newPackageId = "5537104a902b0847bb7b474225eced5a:".concat(packageIdArray[0]);
     var promises = [
       downloader.getJson(apiConfig.url + '/info/' +
-        encodeURIComponent(packageId) + '/package'),
+        encodeURIComponent(newPackageId) + '/package'),
       downloader.getJson(apiConfig.url + '/cubes/' +
-        encodeURIComponent(packageId) + '/model/')
+        encodeURIComponent(newPackageId) + '/model/')
     ];
 
     return Promise.all(promises)
       .then(function(results) {
-        return createPackageModel(packageId, results[0], results[1].model);
+        return createPackageModel(newPackageId, results[0], results[1].model);
       })
       .then(function(packageModel) {
         if (loadBareModel) {
