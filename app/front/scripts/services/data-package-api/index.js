@@ -393,14 +393,14 @@ function getDataPackage(packageId, loadBareModel) {
     var newPackageId = packageIdArray[0].concat(":").concat(packageIdArray[1]);
     var promises = [
       downloader.getJson(apiConfig.url + '/info/' +
-        encodeURIComponent(packageId) + '/package'),
+        encodeURIComponent(newPackageId) + '/package'),
       downloader.getJson(apiConfig.url + '/cubes/' +
-        encodeURIComponent(packageId) + '/model/')
+        encodeURIComponent(newPackageId) + '/model/')
     ];
 
     return Promise.all(promises)
       .then(function(results) {
-        return createPackageModel(packageId, results[0], results[1].model);
+        return createPackageModel(newPackageId, results[0], results[1].model);
       })
       .then(function(packageModel) {
         if (loadBareModel) {
