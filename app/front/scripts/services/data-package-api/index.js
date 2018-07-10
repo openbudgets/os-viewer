@@ -388,18 +388,18 @@ function createPackageModel(packageId, dataPackage, model) {
 function getDataPackage(packageId, loadBareModel) {
   return loadConfig().then(function() {
     var apiConfig = module.exports.apiConfig;
-    var packageIdArray = packageId.split("_");
-    var newPackageId = "5537104a902b0847bb7b474225eced5a:".concat(packageIdArray[0]);
+    //var packageIdArray = packageId.split("_");
+    //var newPackageId = "5537104a902b0847bb7b474225eced5a:".concat(packageIdArray[0]);
     var promises = [
       downloader.getJson(apiConfig.url + '/info/' +
-        encodeURIComponent(newPackageId) + '/package'),
+        encodeURIComponent(packageId) + '/package'),
       downloader.getJson(apiConfig.url + '/cubes/' +
-        encodeURIComponent(newPackageId) + '/model/')
+        encodeURIComponent(packageId) + '/model/')
     ];
 
     return Promise.all(promises)
       .then(function(results) {
-        return createPackageModel(newPackageId, results[0], results[1].model);
+        return createPackageModel(packageId, results[0], results[1].model);
       })
       .then(function(packageModel) {
         if (loadBareModel) {
