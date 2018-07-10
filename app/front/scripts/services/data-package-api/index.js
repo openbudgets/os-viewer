@@ -388,8 +388,9 @@ function createPackageModel(packageId, dataPackage, model) {
 function getDataPackage(packageId, loadBareModel) {
   return loadConfig().then(function() {
     var apiConfig = module.exports.apiConfig;
-    //var packageIdArray = packageId.split("_");
+    var packageIdArray = packageId.split("_");
     //var newPackageId = "5537104a902b0847bb7b474225eced5a:".concat(packageIdArray[0]);
+    var newPackageId = packageIdArray[0].concat(":").concat(packageIdArray[1]);
     var promises = [
       downloader.getJson(apiConfig.url + '/info/' +
         encodeURIComponent(packageId) + '/package'),
